@@ -62,14 +62,27 @@ exports.arraysAnswers = {
   },
 
   duplicates : function(arr) {
-    
+    arr.sort()
+    var dupes = [];
+    arr.map(function(c, i){
+      if (i != arr.length-1){
+        if(c == arr[i+1] && dupes.indexOf(c) < 0){
+          dupes.push(c);
+        }
+      }
+    });
+    return dupes;
   },
 
   square : function(arr) {
-
+    return arr.map(function(c){ return c*c;});
   },
 
   findAllOccurrences : function(arr, target) {
-
+    var occ = [];
+    arr.map(function(c, i) {
+      if (c == target) occ.push(i);
+    });
+    return occ;
   }
 };
