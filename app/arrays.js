@@ -51,15 +51,18 @@ exports.arraysAnswers = {
   },
 
   insert : function(arr, item, index) {
-
+    arr.splice(index, 0, item);
+    return arr;
   },
 
   count : function(arr, item) {
-
+    var num = 0;
+    arr.map(function(a){ if ( a==item ) num++;});
+    return num;
   },
 
   duplicates : function(arr) {
-
+    
   },
 
   square : function(arr) {
