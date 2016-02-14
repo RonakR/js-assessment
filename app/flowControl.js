@@ -10,6 +10,13 @@ exports.flowControlAnswers = {
     //
     // otherwise the function should return the number, or false if no number
     // was provided or the value provided is not a number
+    var retStr = "";
+    if( num % 3 == 0 ) retStr+="fizz";
+    if( num % 5 == 0 ) retStr+="buzz";
+    var isNum = function() {
+      return typeof(num) == "number" ? num : false;
+    }
+    return retStr ? retStr : isNum();
 
   }
 };
