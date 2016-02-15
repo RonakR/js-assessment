@@ -43,10 +43,16 @@ exports.functionsAnswers = {
   },
 
   partialUsingArguments : function(fn) {
+    var args = [].splice.call(arguments, 1, arguments.length);
 
+    return function(){
+      args = args.concat([].splice.call(arguments, 0, arguments.length));
+
+      return fn.apply(null, args);
+    }
   },
 
   curryIt : function(fn) {
-
+    return curry(curryIt);
   }
 };
