@@ -38,21 +38,37 @@ exports.functionsAnswers = {
   },
 
   callIt : function(fn) {
-    var args = [].splice.call(arguments, 1, arguments.length);
+    var args = [].slice.call(arguments, 1, arguments.length);
     return fn.apply(null, args);
   },
 
   partialUsingArguments : function(fn) {
-    var args = [].splice.call(arguments, 1, arguments.length);
+    var args = [].slice.call(arguments, 1, arguments.length);
 
     return function(){
-      args = args.concat([].splice.call(arguments, 0, arguments.length));
+      args = args.concat([].slice.call(arguments, 0, arguments.length));
 
       return fn.apply(null, args);
     }
   },
 
   curryIt : function(fn) {
-    return curry(curryIt);
+    var applyArguments = function(fn, currentArguments){
+      return fn.apply(null, currentArguments);
+    }
+
+    var getArgumentAccumulator = function(accumulatedArguments, expectedArgumentsCount){
+      return function(currentArgument){
+        accumulatedArguments.push(currentArgument);
+
+        if (accumulatedArguments.length === expectedArgumentsCount){
+          return applyArguments(fn, accumulatedArguments);
+        } else {
+          return getArgumentAccumulator(accumulatedArguments, expectedArgumentsCount);
+        }
+      };
+    }
+
+    return getArgumentAccumulator([], fn.length);
   }
 };
